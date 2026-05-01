@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Три карти | Astraeus Oracle",
+    "title": "Три карти | You Unveil",
     "description": "Подреди минало, настояще и бъдеще с небесното тесте."
   },
   "desktop": {
@@ -31,7 +31,18 @@
       "cardBackAlt": "Гръб на таро карта",
       "faceAlt": "Лице на карта Rider–Waite",
       "dragHandleAria": "Завлечи към друга свободна позиция или обратно към тестето",
-      "clearSlotAria": "Върни картата в тестето и разбъркай"
+      "clearSlotAria": "Върни картата в тестето и разбъркай",
+      "infoAria": "Отвори информация за картата"
+    },
+    "cardInfo": {
+      "loading": "Проверяваме арканите...",
+      "modalAria": "Информация за таро картата",
+      "closeAria": "Затвори информацията за картата",
+      "orientationUpright": "Права",
+      "orientationReversed": "Обърната",
+      "meaningTitle": "Значение",
+      "descriptionTitle": "Описание",
+      "errorToast": "Възникна проблем при зареждането на тази карта. Опитай отново."
     }
   },
   "mobile": {

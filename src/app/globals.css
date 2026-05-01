@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* YouUnveil palette: only Primary, Secondary, Tertiary, Neutral (+ black→white scale). */
+/* You Unveil palette: only Primary, Secondary, Tertiary, Neutral (+ black→white scale). */
 :root,
 .dark {
   --palette-primary: #0a0e1a;
@@ -167,6 +167,24 @@
   }
   code {
     @apply font-mono;
+  }
+
+  /* Consistent pointer affordance for interactive controls (incl. ad-hoc <button>s). */
+  button:not(:disabled):not([disabled]):not([aria-disabled="true"]),
+  [role="button"]:not([aria-disabled="true"]),
+  input[type="button"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="reset"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  button[disabled],
+  button[aria-disabled="true"],
+  input[type="button"]:disabled,
+  input[type="submit"]:disabled,
+  input[type="reset"]:disabled {
+    cursor: not-allowed;
   }
 }
 
