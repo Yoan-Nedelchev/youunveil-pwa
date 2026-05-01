@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "title": "Three Card Spread | Astraeus Oracle",
+    "description": "Lay out past, present, and future with the celestial deck."
+  },
+  "desktop": {
+    "arenaAria": "Past, present, and future card positions",
+    "slotFlipHint": "Click to reveal or hide the card face",
+    "seekersEyebrow": "Seeker's inquiry",
+    "seekersQuestion": "What path does the universe reveal for my current transition?",
+    "slots": {
+      "past": {
+        "title": "Past",
+        "subtitle": "Foundations & origins",
+        "dragLabel": "Drag card here"
+      },
+      "present": {
+        "title": "Present",
+        "subtitle": "Current energies",
+        "dragLabel": "Drag card here"
+      },
+      "future": {
+        "title": "Future",
+        "subtitle": "Emerging path",
+        "dragLabel": "Drag card here"
+      }
+    },
+    "deck": {
+      "hint": "Draw seventy-eight possibilities from the celestial collective.",
+      "dropDeckAria": "Return a card to the deck",
+      "cardBackAlt": "Tarot card back",
+      "faceAlt": "Rider–Waite tarot card face",
+      "dragHandleAria": "Drag to another free position or back to the deck",
+      "clearSlotAria": "Return card to deck and shuffle"
+    }
+  },
+  "mobile": {
+    "canvasAria": "Three card spread canvas",
+    "initialEyebrow": "Initial question",
+    "initialQuestion": "What path should I take for my career growth in the coming lunar cycle?",
+    "slots": {
+      "past": {
+        "label": "Past",
+        "aside": "Foundation",
+        "overlayTitle": "The roots of time"
+      },
+      "present": {
+        "label": "Present",
+        "aside": "Currently unfolding",
+        "cardTitle": "The Magician",
+        "tags": ["Air", "Mercury"]
+      },
+      "future": {
+        "label": "Future",
+        "aside": "Potential path",
+        "empty": "Awaiting your touch..."
+      }
+    },
+    "deck": {
+      "eyebrow": "Select from the deck",
+      "interpretCta": "Interpret spread"
+    }
+  },
+  "images": {
+    "mobilePast": "Mystical tarot card back with gold celestial pattern on deep navy.",
+    "mobilePresent": "The Magician tarot card in a cosmic digital style.",
+    "fanCardAlts": [
+      "Tarot card back with sacred geometry in gold on charcoal.",
+      "Tarot back with obsidian orb and nebula reflections.",
+      "Luxury tarot back with golden phoenix and geometric sun.",
+      "Celestial tarot back with violet and teal galaxy swirls.",
+      "Tarot back with golden hourglass and stardust."
+    ],
+    "desktopStackAlts": [
+      "Tarot card back with celestial geometry, sun and moon on indigo.",
+      "Tarot back with lotus mandala and golden foil.",
+      "Tarot back with cosmic eyes and orbiting planets.",
+      "Tarot back with constellation chart and nebula corners.",
+      "Tarot back with phoenix and glowing runes."
+    ]
+  }
+}

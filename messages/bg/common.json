@@ -1,0 +1,24 @@
+{
+  "brand": "Astraeus Oracle",
+  "nav": {
+    "beginReading": "Започни четене",
+    "spreads": "Подредби",
+    "myJournal": "Моят дневник",
+    "theArcana": "Арканите",
+    "signIn": "Вход",
+    "oracle": "Оракул",
+    "journal": "Дневник",
+    "profile": "Профил"
+  },
+  "actions": {
+    "sparkles": "Отвори вдъхновение",
+    "settings": "Отвори настройки"
+  },
+  "footer": {
+    "privacy": "Поверителност",
+    "terms": "Небесни условия",
+    "ethicalAi": "Етичен ИИ",
+    "support": "Поддръжка",
+    "copyright": "© {year} Astraeus Oracle. Мъдрост чрез небесна прецизност."
+  }
+}
