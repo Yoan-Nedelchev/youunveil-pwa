@@ -2,7 +2,7 @@
 
 import type { User } from "@supabase/supabase-js";
 import { useTranslations } from "next-intl";
-import { Sparkles, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
@@ -20,7 +20,6 @@ const DESKTOP_NAV: { tab: DesktopNavTab; href: string; labelKey: string }[] = [
   { tab: "beginReading", href: "/", labelKey: "beginReading" },
   { tab: "spreads", href: "/spreads", labelKey: "spreads" },
   { tab: "myJournal", href: "/journal", labelKey: "myJournal" },
-  { tab: "theArcana", href: "/arcana", labelKey: "theArcana" },
 ];
 
 export function SiteHeader() {
@@ -60,7 +59,7 @@ export function SiteHeader() {
     "font-heading border-b-2 pb-1 text-sm uppercase tracking-wide transition-colors";
 
   return (
-    <header className="border-border-header bg-header/60 fixed top-0 z-50 flex w-full items-center justify-between border-b px-6 py-4 shadow-header backdrop-blur-2xl md:px-12">
+    <header className="border-border-header bg-header/60 sticky top-0 z-50 flex w-full items-center justify-between border-b px-6 py-4 shadow-header backdrop-blur-2xl md:px-12">
       <Link
         href="/"
         className="font-heading text-2xl font-light tracking-tighter text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]"
@@ -91,14 +90,9 @@ export function SiteHeader() {
         <LanguageSwitcher />
         <button
           type="button"
-          className="text-slate-400 transition-colors hover:text-amber-200"
-          aria-label={t("actions.sparkles")}
-        >
-          <Sparkles className="size-5" aria-hidden />
-        </button>
-        <button
-          type="button"
-          className="text-slate-400 transition-colors hover:text-amber-200"
+          disabled
+          aria-disabled="true"
+          className="cursor-not-allowed text-slate-500/50"
           aria-label={t("actions.settings")}
         >
           <Settings className="size-5" aria-hidden />

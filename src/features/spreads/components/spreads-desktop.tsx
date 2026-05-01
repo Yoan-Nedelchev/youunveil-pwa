@@ -14,8 +14,8 @@ import {
   useSpreadTarotStore,
 } from "@/stores/spread-tarot-store";
 
-import { SeekersInquirySection } from "./seekers-inquiry-section";
 import { SpreadDragArenaDesktop } from "./spread-drag-arena-desktop";
+import { SpreadsInitialQuestion } from "./spreads-initial-question";
 import { SpreadTarotDndDesktop } from "./spread-tarot-dnd-desktop";
 import { TarotDeckDropZoneDesktop } from "./tarot-deck-drop-zone-desktop";
 import { TarotDeckFanDesktop } from "./tarot-deck-fan-desktop";
@@ -129,11 +129,11 @@ export function SpreadsDesktop() {
         <div className="relative">
           <main
             className={cn(
-              "mx-auto flex min-h-screen max-w-6xl flex-col px-6 pt-32 pb-32 transition-[filter] md:px-12",
+              "mx-auto flex min-h-screen max-w-6xl flex-col px-6 pt-16 pb-24 transition-[filter] md:px-12",
               isLoadingInfo && "pointer-events-none blur-[2px]",
             )}
           >
-            <SeekersInquirySection />
+            <SpreadsInitialQuestion className="max-w-none" />
             <SpreadDragArenaDesktop onRequestCardInfo={requestCardInfo} />
             <section className="-mt-8 flex w-full flex-col items-center md:-mt-12">
               <TarotDeckDropZoneDesktop>
