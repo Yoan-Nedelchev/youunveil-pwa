@@ -11,6 +11,17 @@ export type TarotDrawCard = {
   orientation: TarotOrientation;
 };
 
+export type TarotCardInfo = {
+  name: string;
+  nameShort: string;
+  value: string;
+  suit: string;
+  type: string;
+  desc: string;
+  meaningUp: string;
+  meaningRev: string;
+};
+
 function newInstanceId(): string {
   return typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
@@ -42,18 +53,21 @@ type SpreadTarotState = {
   deck: TarotDrawCard[];
   slots: Record<SpreadSlotKey, TarotDrawCard | null>;
   revealed: Record<SpreadSlotKey, boolean>;
+  cardInfoCache: Record<number, TarotCardInfo>;
   shuffleGeneration: number;
   initSpread: () => void;
   placeFromDeck: (slot: SpreadSlotKey, instanceId: string) => void;
   returnToDeck: (slot: SpreadSlotKey) => void;
   moveSlotToSlot: (from: SpreadSlotKey, to: SpreadSlotKey) => void;
   toggleReveal: (slot: SpreadSlotKey) => void;
+  setCardInfoCache: (cardId: number, info: TarotCardInfo) => void;
 };
 
 export const useSpreadTarotStore = create<SpreadTarotState>((set) => ({
   deck: [],
   slots: { ...emptySlots },
   revealed: { ...emptyRevealed },
+  cardInfoCache: {},
   shuffleGeneration: 0,
 
   initSpread: () => {
@@ -125,6 +139,11 @@ export const useSpreadTarotStore = create<SpreadTarotState>((set) => ({
         revealed: { ...s.revealed, [slot]: !s.revealed[slot] },
       };
     }),
+
+  setCardInfoCache: (cardId, info) =>
+    set((s) => ({
+      cardInfoCache: { ...s.cardInfoCache, [cardId]: info },
+    })),
 }));
 
 export const SPREAD_SLOT_DROPPABLE = {

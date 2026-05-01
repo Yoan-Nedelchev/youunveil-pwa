@@ -9,7 +9,10 @@ import { useState } from "react";
 import { CosmicBackdrop } from "@/components/cosmic-backdrop";
 import { getTarotApiNameShort } from "@/lib/tarot/tarotapi-map";
 import { cn } from "@/lib/utils";
-import { useSpreadTarotStore } from "@/stores/spread-tarot-store";
+import {
+  type TarotCardInfo,
+  useSpreadTarotStore,
+} from "@/stores/spread-tarot-store";
 
 import { SeekersInquirySection } from "./seekers-inquiry-section";
 import { SpreadDragArenaDesktop } from "./spread-drag-arena-desktop";
@@ -20,6 +23,8 @@ import { TarotDeckFanDesktop } from "./tarot-deck-fan-desktop";
 export function SpreadsDesktop() {
   const t = useTranslations("spreads.desktop.cardInfo");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
+  const cardInfoCache = useSpreadTarotStore((s) => s.cardInfoCache);
+  const setCardInfoCache = useSpreadTarotStore((s) => s.setCardInfoCache);
   const [isLoadingInfo, setIsLoadingInfo] = useState(false);
   const [cardInfo, setCardInfo] = useState<{
     name: string;
@@ -40,6 +45,24 @@ export function SpreadsDesktop() {
     cardId: number;
     orientation: "upright" | "reversed";
   }) {
+    const cached = cardInfoCache[payload.cardId];
+    if (cached) {
+      setCardInfo({
+        name: cached.name,
+        nameShort: cached.nameShort,
+        suit: cached.suit,
+        type: cached.type,
+        value: cached.value,
+        desc: cached.desc,
+        meaning:
+          payload.orientation === "upright"
+            ? cached.meaningUp
+            : cached.meaningRev,
+        orientation: payload.orientation,
+      });
+      return;
+    }
+
     setIsLoadingInfo(true);
     setCardInfo(null);
     try {
@@ -63,17 +86,28 @@ export function SpreadsDesktop() {
         };
       };
       const card = data.card;
-      setCardInfo({
+      const normalized: TarotCardInfo = {
         name: card.name,
         nameShort: card.name_short,
         suit: card.suit,
         type: card.type,
         value: card.value,
         desc: card.desc,
+        meaningUp: card.meaning_up,
+        meaningRev: card.meaning_rev,
+      };
+      setCardInfoCache(payload.cardId, normalized);
+      setCardInfo({
+        name: normalized.name,
+        nameShort: normalized.nameShort,
+        suit: normalized.suit,
+        type: normalized.type,
+        value: normalized.value,
+        desc: normalized.desc,
         meaning:
           payload.orientation === "upright"
-            ? card.meaning_up
-            : card.meaning_rev,
+            ? normalized.meaningUp
+            : normalized.meaningRev,
         orientation: payload.orientation,
       });
     } catch {
