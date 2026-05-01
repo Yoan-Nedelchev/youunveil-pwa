@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Loader2, Sparkles, Zap } from "lucide-react";
+import { useCallback, useState } from "react";
 
 import { LANDING_IMAGES } from "@/features/landing/image-urls";
 import { buttonVariants } from "@/components/ui/button";
@@ -10,6 +11,52 @@ import { cn } from "@/lib/utils";
 
 export function LandingHero() {
   const t = useTranslations("landing.hero");
+  const [prompt, setPrompt] = useState("");
+  const [output, setOutput] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const submit = useCallback(async () => {
+    const trimmed = prompt.trim();
+    if (!trimmed) {
+      setError(t("errorEmpty"));
+      setOutput(null);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setOutput(null);
+
+    try {
+      const res = await fetch("/api/gemini", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: trimmed }),
+      });
+
+      const data = (await res.json()) as { output?: string; error?: string };
+
+      if (!res.ok) {
+        if (res.status === 400 && data.error === "Prompt too long") {
+          setError(t("errorTooLong"));
+        } else {
+          setError(t("errorGeneric"));
+        }
+        return;
+      }
+
+      if (typeof data.output === "string" && data.output.length > 0) {
+        setOutput(data.output);
+      } else {
+        setError(t("errorGeneric"));
+      }
+    } catch {
+      setError(t("errorGeneric"));
+    } finally {
+      setLoading(false);
+    }
+  }, [prompt, t]);
 
   return (
     <section
@@ -45,30 +92,76 @@ export function LandingHero() {
         <p className="text-muted-foreground mx-auto mb-12 max-w-2xl text-lg leading-relaxed md:text-xl">
           {t("subtitle")}
         </p>
-        <div className="glass-panel flex flex-col items-stretch gap-4 rounded-xl border-palette-secondary/20 p-2 shadow-2xl sm:flex-row sm:items-center">
+        <form
+          className="glass-panel flex flex-col items-stretch gap-4 rounded-xl border-palette-secondary/20 p-2 shadow-2xl sm:flex-row sm:items-center"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void submit();
+          }}
+        >
           <label htmlFor="hero-inquiry" className="sr-only">
             {t("inputPlaceholder")}
           </label>
           <input
             id="hero-inquiry"
             type="text"
+            name="inquiry"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
             placeholder={t("inputPlaceholder")}
-            className="text-foreground placeholder:text-slate-600 w-full border-0 bg-transparent px-6 py-4 text-base focus:ring-0 md:text-lg"
+            disabled={loading}
+            autoComplete="off"
+            className="text-foreground placeholder:text-slate-600 w-full border-0 bg-transparent px-6 py-4 text-base focus:ring-0 disabled:opacity-60 md:text-lg"
           />
           <button
-            type="button"
+            type="submit"
+            disabled={loading}
             className={cn(
               buttonVariants({ variant: "secondary" }),
-              "group inline-flex shrink-0 items-center gap-2 rounded-lg border-transparent bg-palette-secondary px-8 py-4 font-heading text-xl font-medium text-palette-primary hover:bg-palette-secondary/90",
+              "group inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border-transparent bg-palette-secondary px-8 py-4 font-heading text-xl font-medium text-palette-primary hover:bg-palette-secondary/90 disabled:pointer-events-none disabled:opacity-60",
             )}
           >
-            {t("inquire")}
-            <ArrowRight
-              className="size-5 transition-transform group-hover:translate-x-1"
-              aria-hidden
-            />
+            {loading ? (
+              <>
+                <Loader2 className="size-5 shrink-0 animate-spin" aria-hidden />
+                {t("loading")}
+              </>
+            ) : (
+              <>
+                {t("inquire")}
+                <ArrowRight
+                  className="size-5 shrink-0 transition-transform group-hover:translate-x-1"
+                  aria-hidden
+                />
+              </>
+            )}
           </button>
-        </div>
+        </form>
+
+        {(output !== null || error !== null) && (
+          <div
+            className="glass-panel border-palette-secondary/15 mt-6 rounded-xl border px-6 py-5 text-left shadow-xl"
+            role="region"
+            aria-label={t("responseAria")}
+            aria-live="polite"
+          >
+            {error !== null ? (
+              <p className="text-destructive text-sm leading-relaxed">
+                {error}
+              </p>
+            ) : (
+              <>
+                <h2 className="text-label-sm text-palette-secondary mb-3 font-heading font-semibold tracking-widest uppercase">
+                  {t("responseHeading")}
+                </h2>
+                <p className="text-foreground/90 whitespace-pre-wrap text-base leading-relaxed">
+                  {output}
+                </p>
+              </>
+            )}
+          </div>
+        )}
+
         <div className="mt-8 flex flex-wrap justify-center gap-8">
           <div className="text-label-sm flex items-center gap-2 font-semibold tracking-widest text-slate-500 uppercase">
             <Zap className="text-teal-accent size-4 shrink-0" aria-hidden />
