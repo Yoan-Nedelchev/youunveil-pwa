@@ -217,4 +217,103 @@
     letter-spacing: 0.1em;
     font-weight: 600;
   }
+
+  .glass-card {
+    background: rgba(10, 14, 26, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+  }
+
+  .cosmic-gradient-bg {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(26, 0, 51, 0.8) 0%,
+      rgba(10, 14, 26, 1) 100%
+    );
+  }
+
+  .nebula-orb {
+    filter: blur(80px);
+    opacity: 0.15;
+  }
+
+  .cosmic-glow {
+    box-shadow:
+      0 0 30px rgba(45, 212, 191, 0.15),
+      0 0 48px color-mix(in srgb, var(--palette-secondary) 15%, transparent);
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-slot-interactive {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-slot-interactive:hover {
+    border-color: rgba(233, 195, 73, 0.6);
+    box-shadow: 0 0 20px rgba(233, 195, 73, 0.1);
+  }
+
+  .deck-fan-container {
+    perspective: 1200px;
+    width: 100%;
+    height: 300px;
+    padding-bottom: 2rem;
+  }
+
+  /* Shorter box: fan is anchored to the bottom; a tall fixed height only added empty flow space. */
+  .deck-fan-container--lg {
+    height: 300px;
+    padding-bottom: 0.75rem;
+    overflow: visible;
+  }
+
+  @media (min-width: 768px) {
+    .deck-fan-container--lg {
+      height: 330px;
+    }
+  }
+
+  .fan-card {
+    transition:
+      transform 0.35s ease,
+      z-index 0.2s ease;
+    transform-origin: bottom center;
+  }
+
+  .tarot-flip-scene {
+    perspective: 1200px;
+  }
+
+  .tarot-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tarot-flip-inner.is-revealed {
+    transform: rotateY(180deg);
+  }
+
+  .tarot-flip-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .tarot-flip-face--front {
+    transform: rotateY(180deg);
+  }
+
+  .deck-shuffle-burst .fan-card {
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 }

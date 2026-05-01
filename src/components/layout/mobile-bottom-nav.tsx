@@ -15,16 +15,15 @@ const items: {
   href: string;
   icon: typeof Sparkles;
 }[] = [
-  { tab: "oracle", href: "/#hero", icon: Sparkles },
-  { tab: "spreads", href: "/", icon: LayoutGrid },
-  { tab: "journal", href: "/#deck", icon: BookOpen },
-  { tab: "profile", href: "/#profile", icon: UserCircle },
+  { tab: "oracle", href: "/oracle", icon: Sparkles },
+  { tab: "spreads", href: "/spreads", icon: LayoutGrid },
+  { tab: "journal", href: "/journal", icon: BookOpen },
+  { tab: "profile", href: "/profile", icon: UserCircle },
 ];
 
 export function MobileBottomNav() {
   const t = useTranslations("common");
   const active = useNavActiveStore((s) => s.mobileActiveTab);
-  const setActive = useNavActiveStore((s) => s.setMobileActiveTab);
 
   return (
     <nav
@@ -37,7 +36,6 @@ export function MobileBottomNav() {
           <Link
             key={tab}
             href={href}
-            onClick={() => setActive(tab)}
             className={cn(
               "relative flex flex-col items-center justify-center gap-1 pb-1.5",
               isActive

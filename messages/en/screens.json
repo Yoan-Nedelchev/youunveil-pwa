@@ -1,0 +1,18 @@
+{
+  "oracle": {
+    "title": "Oracle",
+    "description": "Pose your inquiry and receive guidance from the celestial engine."
+  },
+  "journal": {
+    "title": "My journal",
+    "description": "Your personal log of readings and reflections."
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Account and preferences."
+  },
+  "arcana": {
+    "title": "The arcana",
+    "description": "Explore the symbols and traditions of the deck."
+  }
+}

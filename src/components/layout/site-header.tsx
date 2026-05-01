@@ -14,16 +14,15 @@ import {
 import { LanguageSwitcher } from "./language-switcher";
 
 const DESKTOP_NAV: { tab: DesktopNavTab; href: string; labelKey: string }[] = [
-  { tab: "beginReading", href: "/#hero", labelKey: "beginReading" },
-  { tab: "spreads", href: "/#wisdom", labelKey: "spreads" },
-  { tab: "myJournal", href: "/#deck", labelKey: "myJournal" },
-  { tab: "theArcana", href: "/#testimonials", labelKey: "theArcana" },
+  { tab: "beginReading", href: "/", labelKey: "beginReading" },
+  { tab: "spreads", href: "/spreads", labelKey: "spreads" },
+  { tab: "myJournal", href: "/journal", labelKey: "myJournal" },
+  { tab: "theArcana", href: "/arcana", labelKey: "theArcana" },
 ];
 
 export function SiteHeader() {
   const t = useTranslations("common");
   const active = useNavActiveStore((s) => s.desktopActiveTab);
-  const setActive = useNavActiveStore((s) => s.setDesktopActiveTab);
 
   const navClass =
     "font-heading border-b-2 pb-1 text-sm uppercase tracking-wide transition-colors";
@@ -41,7 +40,6 @@ export function SiteHeader() {
           <Link
             key={tab}
             href={href}
-            onClick={() => setActive(tab)}
             className={cn(
               navClass,
               active === tab

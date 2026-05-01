@@ -9,9 +9,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
     ? requested
     : routing.defaultLocale;
 
-  const [common, landing] = await Promise.all([
+  const [common, landing, spreads, screens] = await Promise.all([
     import(`../../messages/${locale}/common.json`),
     import(`../../messages/${locale}/landing.json`),
+    import(`../../messages/${locale}/spreads.json`),
+    import(`../../messages/${locale}/screens.json`),
   ]);
 
   return {
@@ -19,6 +21,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
     messages: {
       common: common.default,
       landing: landing.default,
+      spreads: spreads.default,
+      screens: screens.default,
     },
   };
 });
