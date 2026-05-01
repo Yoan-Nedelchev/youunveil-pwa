@@ -1,4 +1,4 @@
-# YouUnveil PWA
+# You Unveil PWA
 
 Next.js 15 (App Router), TypeScript (strict), Tailwind v4, shadcn/ui, Supabase Auth (`@supabase/ssr`), Drizzle + Postgres, TanStack Query, PWA via `@ducanh2912/next-pwa`, and **`next-intl`** for locales (`en`, `bg`).
 

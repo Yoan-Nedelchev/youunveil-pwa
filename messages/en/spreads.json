@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Three Card Spread | Astraeus Oracle",
+    "title": "Three Card Spread | You Unveil",
     "description": "Lay out past, present, and future with the celestial deck."
   },
   "desktop": {
@@ -31,7 +31,18 @@
       "cardBackAlt": "Tarot card back",
       "faceAlt": "Rider–Waite tarot card face",
       "dragHandleAria": "Drag to another free position or back to the deck",
-      "clearSlotAria": "Return card to deck and shuffle"
+      "clearSlotAria": "Return card to deck and shuffle",
+      "infoAria": "Open card information"
+    },
+    "cardInfo": {
+      "loading": "Consulting the arcana...",
+      "modalAria": "Tarot card information",
+      "closeAria": "Close card information",
+      "orientationUpright": "Upright",
+      "orientationReversed": "Reversed",
+      "meaningTitle": "Meaning",
+      "descriptionTitle": "Description",
+      "errorToast": "Something went wrong while loading this card. Please try again."
     }
   },
   "mobile": {
