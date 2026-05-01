@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Sparkles, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
@@ -27,7 +27,9 @@ export function SiteHeader() {
   const t = useTranslations("common");
   const tAuth = useTranslations("auth.header");
   const router = useRouter();
+  const pathname = usePathname();
   const active = useNavActiveStore((s) => s.desktopActiveTab);
+  const setIsNavigating = useNavActiveStore((s) => s.setIsNavigating);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -70,6 +72,9 @@ export function SiteHeader() {
           <Link
             key={tab}
             href={href}
+            onClick={() => {
+              if (pathname !== href) setIsNavigating(true);
+            }}
             className={cn(
               navClass,
               active === tab
@@ -120,6 +125,9 @@ export function SiteHeader() {
         ) : (
           <Link
             href="/login"
+            onClick={() => {
+              if (pathname !== "/login") setIsNavigating(true);
+            }}
             className={cn(
               buttonVariants({ variant: "secondary", size: "sm" }),
               "rounded-sm border-transparent bg-palette-secondary uppercase tracking-widest text-palette-primary shadow-none hover:bg-palette-secondary/90 hover:shadow-[0_0_15px_rgba(233,195,73,0.4)]",

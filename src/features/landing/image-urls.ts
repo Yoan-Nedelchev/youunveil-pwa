@@ -1,16 +1,10 @@
-/** Remote image URLs from Stitch / Google user content (allowed in next.config). */
+/** Stable local assets (avoid transient Stitch/Google URLs that can return 400). */
 
 export const LANDING_IMAGES = {
-  heroBackground:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuDbKCtV91zh1ZfdwmQ7c0BMAmI3vVDYwe3xv4oGxsYZQQ55wNQvDdLG1y5hD6-lN4_MgHVheIOM7swbKNqNx-JR96aTF25JK2Q4A49OVeNnM4X1q-5sPqfIwVyAEDTcRywebknT2-F1K-stKwQss3qrnGd2YvwbzRRnLA_nUT0FXqvGR_sEUiLukLAvbYBf-mXnFjRVHWmbsi1NnyyHEbfK6FjBOTTDYpPJLrdsV-thGj_lsIZf-U4zzIDDcl0vkY62z9itAwbUkNVy",
-  deckCelestial:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuAPcT9zoCKN1P89oC3cjxvyhNmyFhrSLxAduRdvEH6LGmDljXDFo1bJeI0aRICo-dNm0VutpHJP1l_ssu1KwQcTYqyiwgtxHiGINVWw9zl2UBUmmV3DskhpL57o-XO5ezTDPJYTaJJ-OMohnr6R2K0bQN3bujVN_-65nfNSz1bh3x9NvF5xkOB5RF7BG0zm3MGTqWJPYF-pkPaBoIuCnkMXuNZ5Ty4HoB0pXlZueCXSl6BoIbeRCyrFW1VXN6mvzOsF5BQWb4j4nLUQ",
-  deckOracle:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBRivDjO-Tx7n7yRXSlKNC4yFlHEPGwamFo4wi7u9w04IIEmIDL0L2YXGw3aVOMUNwecFOi5HvLK2CQfDIvGRlUnz2SOhKhWUXKBZ5Wvjz7jBge4z0ueML5QQEC33aTi4LUtyyCmfPwfnsziS3TABsiY80qouX65GxuYrm15MF_n0gz3_hF-MAr6pHLIMeeO_TShNXpNua4fLNBwhb0SHRKIoltlWuXZSpioMO2QoK5keFFQ9T18A8ui_KYc-NyD62g6tchtoaCeJn6",
-  avatarElena:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuAnWV0A1bHKaraW-Kzb4qsgz0B6TVVshid7UUwTeIy5NXsdguSVIX_f7WaWpnLIaMIVMILpuqn9tO0vbsqJPrI0bEAywU58L_4qoVc5iyOWLS_EKpa9mjyONrFvsHd6_BbrTwNVSWFCssCJnEzldpa2wuU_SzOEtrtSnhuB4IRCfyNvnw36M_ejME237hh-ZKmqMAWMQRq4dWmIdyGTuY5Nab22ji7B3_nsp_Z13g-HUPZdxea6oAI0UR8ZzA6zoE0D9Asm7dN88VZ9",
-  avatarMarcus:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBMpGGufgRNHmSGhFywepkxSb5GRmnH3Sqm5CMXiI5pSLgbnVxzGzopNCVGp6DcX7HhqQTKpYwnpHoU3wvpY3vz_PP7MZzRbsin8QCYVmXdMZ6OyH2Q2zhpaWsmjPS3rl2kwlJEw3t5PsEXHrav3culiRQPwlVg6tYg7ZKUgGzVNyol4wWKjMQ7rVxW0yZe5hwWlS8e1ZmpyqJwfeHtmujp-UwgZ6PM4w96aHQhDu-cBqiwa6hTkOSHnjX2H9r-UxwZddaGpjZyIm-B",
-  avatarSasha:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuDDLOOmcryHylTx5XO_8X61DduTV-YfZnwfuFHfstbWTJOy6BjjmZyLKUrBVlw4IEe_Vj1eQr2d5uq1qBFeMpbSLDXlxKD2tHKEInIUfy0ZTyTiJvFMul89aCh9VuqNXV0h3kF4MfzALFwkUzZUHYGfhPu1YNq9EcQc6vK0f4-zVjK74bLWqJ-4WLsJuK16Muqc6H34haKZ35L-JkvkRc9Czn6e8vIbXDLMvAezsQ18jt0zbvjtNX3pC8dgguLR1bxFJDE9JtrQdjLw",
+  heroBackground: "/images/landing/hero-bg.svg",
+  deckCelestial: "/images/landing/deck-celestial.svg",
+  deckOracle: "/images/landing/deck-oracle.svg",
+  avatarElena: "/images/landing/avatar-elena.svg",
+  avatarMarcus: "/images/landing/avatar-marcus.svg",
+  avatarSasha: "/images/landing/avatar-sasha.svg",
 } as const;

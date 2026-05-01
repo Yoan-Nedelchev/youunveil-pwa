@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { BookOpen, LayoutGrid, Sparkles, UserCircle } from "lucide-react";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
   type MobileNavTab,
@@ -23,7 +23,9 @@ const items: {
 
 export function MobileBottomNav() {
   const t = useTranslations("common");
+  const pathname = usePathname();
   const active = useNavActiveStore((s) => s.mobileActiveTab);
+  const setIsNavigating = useNavActiveStore((s) => s.setIsNavigating);
 
   return (
     <nav
@@ -36,6 +38,9 @@ export function MobileBottomNav() {
           <Link
             key={tab}
             href={href}
+            onClick={() => {
+              if (pathname !== href) setIsNavigating(true);
+            }}
             className={cn(
               "relative flex flex-col items-center justify-center gap-1 pb-1.5",
               isActive
