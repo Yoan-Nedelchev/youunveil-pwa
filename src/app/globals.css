@@ -81,6 +81,11 @@
   --sidebar-ring: var(--ring);
 
   --radius: 0.5rem;
+
+  /* Stitch landing teal accent — cyan derived for glass/orbs; documented in project rules. */
+  --landing-teal: #5eead4;
+  --surface-container-low: #1b1b1b;
+  --surface-variant: #353535;
 }
 
 @theme inline {
@@ -133,6 +138,9 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-teal-accent: var(--landing-teal);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-variant: var(--surface-variant);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -159,5 +167,54 @@
   }
   code {
     @apply font-mono;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(10, 14, 26, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid
+      color-mix(in srgb, var(--palette-secondary) 12%, transparent);
+  }
+
+  .aurora-glow {
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--landing-teal) 18%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .card-inner-glow {
+    box-shadow: inset 0 0 15px
+      color-mix(in srgb, var(--palette-secondary) 12%, transparent);
+  }
+
+  .bg-header {
+    background-color: color-mix(
+      in srgb,
+      var(--palette-primary) 60%,
+      transparent
+    );
+  }
+
+  .border-border-header {
+    border-color: color-mix(in srgb, var(--neutral-9) 10%, transparent);
+  }
+
+  .shadow-header {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .text-label-sm {
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.1em;
+    font-weight: 600;
   }
 }

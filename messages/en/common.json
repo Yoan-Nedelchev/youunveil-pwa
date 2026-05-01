@@ -1,0 +1,24 @@
+{
+  "brand": "Astraeus Oracle",
+  "nav": {
+    "beginReading": "Begin Reading",
+    "spreads": "Spreads",
+    "myJournal": "My Journal",
+    "theArcana": "The Arcana",
+    "signIn": "Sign In",
+    "oracle": "Oracle",
+    "journal": "Journal",
+    "profile": "Profile"
+  },
+  "actions": {
+    "sparkles": "Open inspiration",
+    "settings": "Open settings"
+  },
+  "footer": {
+    "privacy": "Privacy Protocol",
+    "terms": "Celestial Terms",
+    "ethicalAi": "Ethical AI",
+    "support": "Support",
+    "copyright": "© {year} Astraeus Oracle. Wisdom through celestial precision."
+  }
+}

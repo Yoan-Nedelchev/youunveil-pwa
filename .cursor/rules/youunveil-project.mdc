@@ -13,6 +13,11 @@ never `.js` or `.jsx`.
 
 - When making framework or architecture decisions, always consult the official
   Next.js documentation and current best practices from reputable sources.
+- **Routing** uses the **Next.js App Router** (`app/`, `next/link`, `next/navigation`).
+  Do **not** use `react-router-dom` (it conflicts with Next.js routing and SSR).
+- **Internationalization** uses **`next-intl`**: localized routes under `/[locale]/...`,
+  shared navigation from `src/i18n/navigation.ts`, and translations in `messages/{locale}/*.json`
+  (no hard-coded user-visible strings in UI components).
 - Use a feature-based folder structure (`/features/[feature-name]`) for scalability.
   Never put business logic directly in page components.
 - The full application scope will not be known upfront — every decision must
@@ -25,7 +30,9 @@ never `.js` or `.jsx`.
   the design, then ask clarifying questions if anything is unclear.
 - Achieve full visual and functional parity with the provided design.
 - A design palette will be provided with all colors used across the application.
-  Never use colors outside this palette.
+  Never use colors outside this palette. **Exception (documented):** Stitch landing
+  uses a teal accent; `--landing-teal` in `globals.css` exists for that parity—keep
+  marketing accents centralized there if the strict four-token palette cannot match.
 
 # Hosting & Infrastructure
 
@@ -96,6 +103,10 @@ never `.js` or `.jsx`.
 - `sharp` — build-time image optimization
 - `next/image` — all image rendering (never `<img>` tags directly)
 - `canvas-confetti` — celebration effects
+
+## Internationalization
+
+- `next-intl` — locale routing, `useTranslations` / `getTranslations`, `NextIntlClientProvider`
 
 ## Developer Experience
 
