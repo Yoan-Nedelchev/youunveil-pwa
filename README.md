@@ -4,11 +4,13 @@ Next.js 15 (App Router), TypeScript (strict), Tailwind v4, shadcn/ui, Supabase A
 
 ## Setup
 
-1. **Environment** — copy `.env.example` to `.env.local` and fill in values from your Supabase project (API keys, database URL, GraphQL endpoint if used).
+1. **Environment** — copy `.env.example` to `.env.local`. Minimum: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_URL`, and `POSTGRES_PRISMA_URL` (or `DATABASE_URL` / `POSTGRES_URL` — see `src/lib/env.ts`). `next.config.ts` maps `SUPABASE_URL` to `NEXT_PUBLIC_SUPABASE_URL` for the browser.
 
 2. **Install** — `npm install`
 
-3. **Database** — after `DATABASE_URL` is set:
+3. **Database** — after a DB URL env var is set:
+   - `npm run db:verify` — run `select 1` via the same Postgres client stack as the app
+   - With `npm run dev`, open `GET /api/health/db` (JSON `{ "ok": true }` if the DB is reachable). In production this route returns 404 unless you set `ENABLE_DB_HEALTH=1` on Vercel.
    - `npm run db:generate` — create migrations from `src/lib/db/schema.ts`
    - `npm run db:push` — push schema (dev) or apply migrations per your workflow
 
