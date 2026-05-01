@@ -3,9 +3,18 @@
 import { History, Eye, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import type { TarotOrientation } from "@/stores/spread-tarot-store";
+
 import { SpreadTarotSlotDesktop } from "./spread-tarot-slot-desktop";
 
-export function SpreadDragArenaDesktop() {
+export function SpreadDragArenaDesktop({
+  onRequestCardInfo,
+}: {
+  onRequestCardInfo: (payload: {
+    cardId: number;
+    orientation: TarotOrientation;
+  }) => void;
+}) {
   const t = useTranslations("spreads.desktop.slots");
   const tRoot = useTranslations("spreads.desktop");
 
@@ -20,6 +29,7 @@ export function SpreadDragArenaDesktop() {
         subtitle={t("past.subtitle")}
         dragLabel={t("past.dragLabel")}
         icon={History}
+        onRequestCardInfo={onRequestCardInfo}
       />
       <SpreadTarotSlotDesktop
         slotKey="present"
@@ -27,6 +37,7 @@ export function SpreadDragArenaDesktop() {
         subtitle={t("present.subtitle")}
         dragLabel={t("present.dragLabel")}
         icon={Eye}
+        onRequestCardInfo={onRequestCardInfo}
       />
       <SpreadTarotSlotDesktop
         slotKey="future"
@@ -34,6 +45,7 @@ export function SpreadDragArenaDesktop() {
         subtitle={t("future.subtitle")}
         dragLabel={t("future.dragLabel")}
         icon={Sparkles}
+        onRequestCardInfo={onRequestCardInfo}
       />
     </section>
   );

@@ -1,11 +1,14 @@
 "use client";
 
+import type { User } from "@supabase/supabase-js";
 import { useTranslations } from "next-intl";
 import { Sparkles, Settings } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import {
   type DesktopNavTab,
   useNavActiveStore,
@@ -22,7 +25,34 @@ const DESKTOP_NAV: { tab: DesktopNavTab; href: string; labelKey: string }[] = [
 
 export function SiteHeader() {
   const t = useTranslations("common");
+  const tAuth = useTranslations("auth.header");
+  const router = useRouter();
   const active = useNavActiveStore((s) => s.desktopActiveTab);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createBrowserSupabaseClient();
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  async function signOut() {
+    const supabase = createBrowserSupabaseClient();
+    await supabase.auth.signOut();
+    router.refresh();
+  }
 
   const navClass =
     "font-heading border-b-2 pb-1 text-sm uppercase tracking-wide transition-colors";
@@ -68,15 +98,36 @@ export function SiteHeader() {
         >
           <Settings className="size-5" aria-hidden />
         </button>
-        <Link
-          href="/"
-          className={cn(
-            buttonVariants({ variant: "secondary", size: "sm" }),
-            "rounded-sm border-transparent bg-palette-secondary uppercase tracking-widest text-palette-primary shadow-none hover:bg-palette-secondary/90 hover:shadow-[0_0_15px_rgba(233,195,73,0.4)]",
-          )}
-        >
-          {t("nav.signIn")}
-        </Link>
+        {user ? (
+          <div className="flex items-center gap-2 md:gap-3">
+            <span
+              className="text-muted-foreground hidden max-w-[160px] truncate text-xs md:inline"
+              title={user.email ?? undefined}
+            >
+              {user.email}
+            </span>
+            <button
+              type="button"
+              onClick={() => void signOut()}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "border-neutral-6 text-neutral-8 hover:bg-neutral-3 rounded-sm uppercase tracking-widest",
+              )}
+            >
+              {tAuth("signOut")}
+            </button>
+          </div>
+        ) : (
+          <Link
+            href="/login"
+            className={cn(
+              buttonVariants({ variant: "secondary", size: "sm" }),
+              "rounded-sm border-transparent bg-palette-secondary uppercase tracking-widest text-palette-primary shadow-none hover:bg-palette-secondary/90 hover:shadow-[0_0_15px_rgba(233,195,73,0.4)]",
+            )}
+          >
+            {t("nav.signIn")}
+          </Link>
+        )}
       </div>
     </header>
   );

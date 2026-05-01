@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Astraeus Oracle",
+    "title": "You Unveil",
     "description": "Access ancient wisdom through a high-precision celestial engine."
   },
   "hero": {
@@ -63,7 +63,7 @@
     "title": "Seeker Testimonials",
     "items": {
       "elena": {
-        "quote": "The precision is unsettling. Astraeus predicted a major career shift three weeks before it happened, using the 'Cosmic Pivot' spread. It's my morning ritual now.",
+        "quote": "The precision is unsettling. You Unveil predicted a major career shift three weeks before it happened, using the 'Cosmic Pivot' spread. It's my morning ritual now.",
         "name": "Elena V.",
         "role": "Creative Director",
         "avatarAlt": "Professional headshot of a woman in her 30s with a serene expression."
@@ -84,7 +84,7 @@
   },
   "cta": {
     "title": "Ready to Consult the Divine?",
-    "body": "Join over 50,000 seekers who find clarity in the celestial precision of Astraeus.",
+    "body": "Join over 50,000 seekers who find clarity in the celestial precision of You Unveil.",
     "primary": "Begin Your First Reading",
     "secondary": "Explore the Deck"
   }

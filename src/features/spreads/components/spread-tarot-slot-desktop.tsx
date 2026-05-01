@@ -2,7 +2,7 @@
 
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import type { LucideIcon } from "lucide-react";
-import { X } from "lucide-react";
+import { Info, X } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
@@ -21,12 +21,17 @@ export function SpreadTarotSlotDesktop({
   subtitle,
   dragLabel,
   icon: Icon,
+  onRequestCardInfo,
 }: {
   slotKey: SpreadSlotKey;
   title: string;
   subtitle: string;
   dragLabel: string;
   icon: LucideIcon;
+  onRequestCardInfo: (payload: {
+    cardId: number;
+    orientation: "upright" | "reversed";
+  }) => void;
 }) {
   const card = useSpreadTarotStore((s) => s.slots[slotKey]);
   const revealed = useSpreadTarotStore((s) => s.revealed[slotKey]);
@@ -91,6 +96,23 @@ export function SpreadTarotSlotDesktop({
             {...listeners}
             {...attributes}
           >
+            {revealed ? (
+              <button
+                type="button"
+                className="border-palette-secondary/40 bg-palette-primary/95 text-palette-secondary hover:bg-palette-secondary/15 absolute -top-2 -left-2 z-30 flex size-9 cursor-pointer items-center justify-center rounded-full border shadow-md"
+                aria-label={tDeck("infoAria")}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRequestCardInfo({
+                    cardId: card.cardId,
+                    orientation: card.orientation,
+                  });
+                }}
+              >
+                <Info className="size-4" aria-hidden />
+              </button>
+            ) : null}
             <button
               type="button"
               className="border-destructive/40 bg-palette-primary/95 text-destructive-foreground hover:bg-destructive/25 absolute -top-2 -right-2 z-30 flex size-9 cursor-pointer items-center justify-center rounded-full border shadow-md"

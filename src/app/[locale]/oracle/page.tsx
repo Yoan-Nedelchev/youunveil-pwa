@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "screens.oracle" });
 
   return {
-    title: `${t("title")} | Astraeus Oracle`,
+    title: `${t("title")} | You Unveil`,
     description: t("description"),
   };
 }

@@ -24,14 +24,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "YouUnveil",
-    template: "%s · YouUnveil",
+    default: "You Unveil",
+    template: "%s · You Unveil",
   },
-  description: "YouUnveil progressive web app",
+  description: "You Unveil progressive web app",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "YouUnveil",
+    title: "You Unveil",
   },
 };
 
