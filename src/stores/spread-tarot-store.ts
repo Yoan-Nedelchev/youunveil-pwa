@@ -53,14 +53,14 @@ type SpreadTarotState = {
   deck: TarotDrawCard[];
   slots: Record<SpreadSlotKey, TarotDrawCard | null>;
   revealed: Record<SpreadSlotKey, boolean>;
-  cardInfoCache: Record<number, TarotCardInfo>;
+  cardInfoCache: Record<string, TarotCardInfo>;
   shuffleGeneration: number;
   initSpread: () => void;
   placeFromDeck: (slot: SpreadSlotKey, instanceId: string) => void;
   returnToDeck: (slot: SpreadSlotKey) => void;
   moveSlotToSlot: (from: SpreadSlotKey, to: SpreadSlotKey) => void;
   toggleReveal: (slot: SpreadSlotKey) => void;
-  setCardInfoCache: (cardId: number, info: TarotCardInfo) => void;
+  setCardInfoCache: (cacheKey: string, info: TarotCardInfo) => void;
 };
 
 export const useSpreadTarotStore = create<SpreadTarotState>((set) => ({
@@ -140,9 +140,9 @@ export const useSpreadTarotStore = create<SpreadTarotState>((set) => ({
       };
     }),
 
-  setCardInfoCache: (cardId, info) =>
+  setCardInfoCache: (cacheKey, info) =>
     set((s) => ({
-      cardInfoCache: { ...s.cardInfoCache, [cardId]: info },
+      cardInfoCache: { ...s.cardInfoCache, [cacheKey]: info },
     })),
 }));
 

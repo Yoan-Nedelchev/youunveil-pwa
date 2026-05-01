@@ -9,9 +9,11 @@ export function NavActiveSync() {
   const pathname = usePathname();
   const setDesktop = useNavActiveStore((s) => s.setDesktopActiveTab);
   const setMobile = useNavActiveStore((s) => s.setMobileActiveTab);
+  const setIsNavigating = useNavActiveStore((s) => s.setIsNavigating);
 
   useEffect(() => {
     const p = pathname || "/";
+    setIsNavigating(false);
 
     if (p === "/") {
       setDesktop("beginReading");
@@ -42,7 +44,7 @@ export function NavActiveSync() {
       setDesktop("beginReading");
       setMobile("profile");
     }
-  }, [pathname, setDesktop, setMobile]);
+  }, [pathname, setDesktop, setIsNavigating, setMobile]);
 
   return null;
 }

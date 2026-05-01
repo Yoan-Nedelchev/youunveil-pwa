@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader2, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -21,6 +21,7 @@ import { TarotDeckDropZoneDesktop } from "./tarot-deck-drop-zone-desktop";
 import { TarotDeckFanDesktop } from "./tarot-deck-fan-desktop";
 
 export function SpreadsDesktop() {
+  const locale = useLocale();
   const t = useTranslations("spreads.desktop.cardInfo");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
   const cardInfoCache = useSpreadTarotStore((s) => s.cardInfoCache);
@@ -45,7 +46,8 @@ export function SpreadsDesktop() {
     cardId: number;
     orientation: "upright" | "reversed";
   }) {
-    const cached = cardInfoCache[payload.cardId];
+    const cacheKey = `${locale}:${payload.cardId}`;
+    const cached = cardInfoCache[cacheKey];
     if (cached) {
       setCardInfo({
         name: cached.name,
@@ -67,9 +69,12 @@ export function SpreadsDesktop() {
     setCardInfo(null);
     try {
       const nameShort = getTarotApiNameShort(payload.cardId);
-      const res = await fetch(`/api/tarot/cards/${nameShort}`, {
-        method: "GET",
-      });
+      const res = await fetch(
+        `/api/tarot/cards/${nameShort}?locale=${locale}`,
+        {
+          method: "GET",
+        },
+      );
       if (!res.ok) {
         throw new Error("Request failed");
       }
@@ -96,7 +101,7 @@ export function SpreadsDesktop() {
         meaningUp: card.meaning_up,
         meaningRev: card.meaning_rev,
       };
-      setCardInfoCache(payload.cardId, normalized);
+      setCardInfoCache(cacheKey, normalized);
       setCardInfo({
         name: normalized.name,
         nameShort: normalized.nameShort,
