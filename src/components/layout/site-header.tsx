@@ -6,14 +6,27 @@ import { Sparkles, Settings } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import {
+  type DesktopNavTab,
+  useNavActiveStore,
+} from "@/stores/nav-active-store";
 
 import { LanguageSwitcher } from "./language-switcher";
 
+const DESKTOP_NAV: { tab: DesktopNavTab; href: string; labelKey: string }[] = [
+  { tab: "beginReading", href: "/#hero", labelKey: "beginReading" },
+  { tab: "spreads", href: "/#wisdom", labelKey: "spreads" },
+  { tab: "myJournal", href: "/#deck", labelKey: "myJournal" },
+  { tab: "theArcana", href: "/#testimonials", labelKey: "theArcana" },
+];
+
 export function SiteHeader() {
   const t = useTranslations("common");
+  const active = useNavActiveStore((s) => s.desktopActiveTab);
+  const setActive = useNavActiveStore((s) => s.setDesktopActiveTab);
 
   const navClass =
-    "font-heading text-sm uppercase tracking-wide transition-colors";
+    "font-heading border-b-2 pb-1 text-sm uppercase tracking-wide transition-colors";
 
   return (
     <header className="border-border-header bg-header/60 fixed top-0 z-50 flex w-full items-center justify-between border-b px-6 py-4 shadow-header backdrop-blur-2xl md:px-12">
@@ -24,33 +37,22 @@ export function SiteHeader() {
         {t("brand")}
       </Link>
       <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-        <Link
-          href="/#hero"
-          className={cn(
-            navClass,
-            "border-b-2 border-amber-400 pb-1 text-amber-400",
-          )}
-        >
-          {t("nav.beginReading")}
-        </Link>
-        <Link
-          href="/#wisdom"
-          className={cn(navClass, "text-slate-400 hover:text-amber-200")}
-        >
-          {t("nav.spreads")}
-        </Link>
-        <Link
-          href="/#deck"
-          className={cn(navClass, "text-slate-400 hover:text-amber-200")}
-        >
-          {t("nav.myJournal")}
-        </Link>
-        <Link
-          href="/#testimonials"
-          className={cn(navClass, "text-slate-400 hover:text-amber-200")}
-        >
-          {t("nav.theArcana")}
-        </Link>
+        {DESKTOP_NAV.map(({ tab, href, labelKey }) => (
+          <Link
+            key={tab}
+            href={href}
+            onClick={() => setActive(tab)}
+            className={cn(
+              navClass,
+              active === tab
+                ? "border-amber-400 text-amber-400"
+                : "border-transparent text-slate-400 hover:text-amber-200",
+            )}
+            aria-current={active === tab ? "page" : undefined}
+          >
+            {t(`nav.${labelKey}`)}
+          </Link>
+        ))}
       </nav>
       <div className="flex items-center gap-3 md:gap-4">
         <LanguageSwitcher />
