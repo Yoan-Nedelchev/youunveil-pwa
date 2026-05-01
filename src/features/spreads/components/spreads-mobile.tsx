@@ -65,6 +65,20 @@ export function SpreadsMobile() {
     initializedRef.current = true;
   }, [initSpread, isMobileViewport, placeFromDeck]);
 
+  useEffect(() => {
+    if (!cardInfo) return;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [cardInfo]);
+
   async function requestCardInfo(payload: {
     cardId: number;
     orientation: "upright" | "reversed";
@@ -249,14 +263,14 @@ export function SpreadsMobile() {
 
       {cardInfo ? (
         <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[80] flex items-center justify-center overflow-hidden bg-black/40 p-4 backdrop-blur-sm"
           onClick={() => setCardInfo(null)}
           role="dialog"
           aria-modal="true"
           aria-label={tInfo("modalAria")}
         >
           <div
-            className="glass-panel border-palette-secondary/25 w-full max-w-md rounded-2xl border p-6 shadow-2xl"
+            className="glass-panel border-palette-secondary/25 flex max-h-[85dvh] w-full max-w-md flex-col rounded-2xl border p-6 shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-4 flex items-start justify-between gap-4">
@@ -281,7 +295,7 @@ export function SpreadsMobile() {
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 overflow-y-auto overscroll-contain pr-1">
               <div>
                 <h3 className="text-palette-secondary mb-1 text-sm font-semibold">
                   {tInfo("meaningTitle")}
