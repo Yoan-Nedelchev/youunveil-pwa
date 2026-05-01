@@ -11,7 +11,13 @@
     "inquire": "Inquire",
     "quantumAlignment": "Quantum Alignment",
     "aiSynchronicity": "AI Synchronicity",
-    "backgroundAlt": "A hyper-detailed celestial background featuring deep navy and charcoal nebulas with shimmering gold star clusters and cosmic dust."
+    "backgroundAlt": "A hyper-detailed celestial background featuring deep navy and charcoal nebulas with shimmering gold star clusters and cosmic dust.",
+    "responseHeading": "Guidance",
+    "responseAria": "Response to your inquiry",
+    "loading": "Consulting the model…",
+    "errorEmpty": "Please enter a question first.",
+    "errorGeneric": "Something went wrong. Try again in a moment.",
+    "errorTooLong": "That question is too long. Try a shorter version."
   },
   "wisdom": {
     "title": "Celestial Wisdom",
