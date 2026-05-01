@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "title": "Astraeus Oracle",
+    "description": "Access ancient wisdom through a high-precision celestial engine."
+  },
+  "hero": {
+    "titleLine1": "The Universe is Speaking.",
+    "titleLine2": "Are you listening?",
+    "subtitle": "Access ancient wisdom through a high-precision celestial engine. Enter your inquiry to begin your journey through the digital arcana.",
+    "inputPlaceholder": "What does the universe want me to know today?",
+    "inquire": "Inquire",
+    "quantumAlignment": "Quantum Alignment",
+    "aiSynchronicity": "AI Synchronicity",
+    "backgroundAlt": "A hyper-detailed celestial background featuring deep navy and charcoal nebulas with shimmering gold star clusters and cosmic dust."
+  },
+  "wisdom": {
+    "title": "Celestial Wisdom",
+    "intro": "Our digital sage translates the movement of the cosmos into actionable intuition, blending centuries of tradition with tomorrow's intelligence.",
+    "cards": {
+      "sync": {
+        "title": "Hyper-Personalized Sync",
+        "body": "Readings that evolve with your unique energetic signature, mapping your life events to celestial transits with eerie precision.",
+        "cta": "Learn More"
+      },
+      "spreads": {
+        "title": "Multi-Dimensional Spreads",
+        "body": "Dozens of custom spreads designed for everything from complex career shifts to the simple \"Daily Vibe\" check-in.",
+        "cta": "View Spreads"
+      },
+      "journal": {
+        "title": "Ethereal Journaling",
+        "body": "Archive your readings in a secure, atmospheric space that tracks your spiritual growth and patterns over time.",
+        "cta": "Open Journal"
+      }
+    }
+  },
+  "deck": {
+    "title": "Masterfully Authored Truths",
+    "body": "Choose from a curated collection of decks, from the traditional Smith-Waite lineage to avant-garde cosmic interpretations. Every card is rendered in stunning high-definition with responsive illumination that reacts to your touch.",
+    "card1Label": "Celestial Deck",
+    "card2Label": "Modern Oracle",
+    "card1Alt": "A luxury tarot card illustration of 'The Moon' featuring gold leaf detailing on a matte charcoal cardstock.",
+    "card2Alt": "An intricately designed tarot card of 'The Star' with a high-definition, glowing teal aesthetic.",
+    "features": {
+      "lunar": {
+        "title": "Lunar Cycle Integration",
+        "body": "Readings tuned to the current phase of the moon for maximum resonance."
+      },
+      "symbolic": {
+        "title": "Symbolic Synthesis",
+        "body": "Cross-referencing astrology, numerology, and the I-Ching."
+      }
+    }
+  },
+  "testimonials": {
+    "eyebrow": "Echoes from the Void",
+    "title": "Seeker Testimonials",
+    "items": {
+      "elena": {
+        "quote": "The precision is unsettling. Astraeus predicted a major career shift three weeks before it happened, using the 'Cosmic Pivot' spread. It's my morning ritual now.",
+        "name": "Elena V.",
+        "role": "Creative Director",
+        "avatarAlt": "Professional headshot of a woman in her 30s with a serene expression."
+      },
+      "marcus": {
+        "quote": "Finally, a digital oracle that doesn't feel like a toy. The integration with my birth chart transits makes every reading feel deeply specific to my path.",
+        "name": "Marcus T.",
+        "role": "Researcher",
+        "avatarAlt": "Professional headshot of a man in his late 40s with salt and pepper hair."
+      },
+      "sasha": {
+        "quote": "The interface alone is transformative. It creates a space for introspection that I haven't found anywhere else in the digital world. Truly a digital sage.",
+        "name": "Sasha K.",
+        "role": "Wellness Blogger",
+        "avatarAlt": "Portrait of a woman with ethereal makeup and a calm, focused gaze."
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to Consult the Divine?",
+    "body": "Join over 50,000 seekers who find clarity in the celestial precision of Astraeus.",
+    "primary": "Begin Your First Reading",
+    "secondary": "Explore the Deck"
+  }
+}

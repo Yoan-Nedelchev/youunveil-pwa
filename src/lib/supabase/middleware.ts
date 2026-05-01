@@ -3,8 +3,11 @@ import { type NextRequest, NextResponse } from "next/server";
 
 import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/env";
 
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+export async function updateSession(
+  request: NextRequest,
+  baseResponse?: NextResponse,
+) {
+  let response = baseResponse ?? NextResponse.next({ request });
 
   let url: string;
   let publishableKey: string;
@@ -24,7 +27,9 @@ export async function updateSession(request: NextRequest) {
         cookiesToSet.forEach(({ name, value }) =>
           request.cookies.set(name, value),
         );
-        response = NextResponse.next({ request });
+        if (!baseResponse) {
+          response = NextResponse.next({ request });
+        }
         cookiesToSet.forEach(({ name, value, options }) =>
           response.cookies.set(name, value, options),
         );

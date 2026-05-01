@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Manrope, Noto_Serif } from "next/font/google";
+import { getLocale } from "next-intl/server";
 
 import { AppProviders } from "@/components/providers/app-providers";
+import { routing } from "@/i18n/routing";
 
 import "./globals.css";
 
@@ -37,13 +39,20 @@ export const viewport: Viewport = {
   themeColor: "#0a0e1a",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let locale: string = routing.defaultLocale;
+  try {
+    locale = await getLocale();
+  } catch {
+    /* e.g. routes without intl context */
+  }
+
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang={locale} className="dark" suppressHydrationWarning>
       <body
         className={`${manrope.variable} ${notoSerif.variable} ${geistMono.variable} min-h-dvh antialiased`}
       >

@@ -1,6 +1,16 @@
 # YouUnveil PWA
 
-Next.js 15 (App Router), TypeScript (strict), Tailwind v4, shadcn/ui, Supabase Auth (`@supabase/ssr`), Drizzle + Postgres, TanStack Query, and PWA via `@ducanh2912/next-pwa`.
+Next.js 15 (App Router), TypeScript (strict), Tailwind v4, shadcn/ui, Supabase Auth (`@supabase/ssr`), Drizzle + Postgres, TanStack Query, PWA via `@ducanh2912/next-pwa`, and **`next-intl`** for locales (`en`, `bg`).
+
+## Routing
+
+- Use the **App Router only** (`src/app`, `next/link`, `next/navigation`). Do **not** add `react-router-dom`.
+- User-facing pages live under **`/[locale]/...`** (e.g. `/en`, `/bg`). `/` redirects to `/en`.
+- Use **`Link`**, **`redirect`**, **`usePathname`**, and **`useRouter`** from [`src/i18n/navigation.ts`](src/i18n/navigation.ts) so locale prefixes stay correct.
+
+## Translations
+
+- Message files: [`messages/en/`](messages/en/) and [`messages/bg/`](messages/bg/) (`common.json`, `landing.json`). Add namespaces as new JSON files and merge them in [`src/i18n/request.ts`](src/i18n/request.ts).
 
 ## Setup
 
@@ -22,7 +32,9 @@ Next.js 15 (App Router), TypeScript (strict), Tailwind v4, shadcn/ui, Supabase A
 
 ## Project layout
 
-- `src/app` — App Router routes and layouts
+- `src/app` — App Router routes and layouts (`[locale]` segment for localized pages)
+- `src/i18n` — `next-intl` routing, navigation helpers, request config
+- `messages` — locale JSON (English, Bulgarian)
 - `src/features` — feature modules (business logic lives here, not in page shells)
 - `src/components` — shared UI (shadcn in `components/ui`)
 - `src/lib` — Supabase clients, DB (`getDb`), GraphQL helper, utilities
