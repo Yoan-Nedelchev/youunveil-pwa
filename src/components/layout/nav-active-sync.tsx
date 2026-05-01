@@ -17,7 +17,7 @@ export function NavActiveSync() {
 
     if (p === "/") {
       setDesktop("beginReading");
-      setMobile("oracle");
+      setMobile("home");
       return;
     }
     if (p.startsWith("/spreads")) {
@@ -32,12 +32,12 @@ export function NavActiveSync() {
     }
     if (p.startsWith("/arcana")) {
       setDesktop("theArcana");
-      setMobile("oracle");
+      setMobile("home");
       return;
     }
     if (p.startsWith("/oracle")) {
       setDesktop("beginReading");
-      setMobile("oracle");
+      setMobile("home");
       return;
     }
     if (p.startsWith("/profile")) {

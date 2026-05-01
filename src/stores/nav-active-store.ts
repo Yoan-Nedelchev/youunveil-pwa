@@ -6,7 +6,7 @@ export type DesktopNavTab =
   | "myJournal"
   | "theArcana";
 
-export type MobileNavTab = "oracle" | "spreads" | "journal" | "profile";
+export type MobileNavTab = "home" | "spreads" | "journal" | "profile";
 
 type NavActiveState = {
   desktopActiveTab: DesktopNavTab;
