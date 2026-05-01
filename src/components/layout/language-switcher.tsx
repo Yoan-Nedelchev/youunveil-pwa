@@ -5,11 +5,13 @@ import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useNavActiveStore } from "@/stores/nav-active-store";
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const setIsNavigating = useNavActiveStore((s) => s.setIsNavigating);
 
   return (
     <div
@@ -29,6 +31,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           )}
           aria-pressed={loc === locale}
           onClick={() => {
+            if (loc !== locale) {
+              setIsNavigating(true);
+            }
             router.replace(pathname, { locale: loc });
           }}
         >
