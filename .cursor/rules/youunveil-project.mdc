@@ -1,0 +1,106 @@
+---
+description: YouUnveil PWA — stack, architecture, design, data, and library conventions (always apply)
+alwaysApply: true
+---
+
+# Project Overview
+
+This is a Next.js 15 (App Router) project built with TypeScript (strict mode).
+It will function as a Progressive Web App (PWA). All files must be `.ts` or `.tsx` —
+never `.js` or `.jsx`.
+
+# Architecture Decisions
+
+- When making framework or architecture decisions, always consult the official
+  Next.js documentation and current best practices from reputable sources.
+- Use a feature-based folder structure (`/features/[feature-name]`) for scalability.
+  Never put business logic directly in page components.
+- The full application scope will not be known upfront — every decision must
+  prioritize scalability and extensibility.
+
+# Design & UI
+
+- Features and screens will be provided as screenshots from Google Stitch.
+- Before generating any code from a screenshot, first describe what you see in
+  the design, then ask clarifying questions if anything is unclear.
+- Achieve full visual and functional parity with the provided design.
+- A design palette will be provided with all colors used across the application.
+  Never use colors outside this palette.
+
+# Hosting & Infrastructure
+
+- Hosted on Vercel (free tier).
+- Database: Supabase with Drizzle ORM. When making DB decisions, consult Vercel
+  and Supabase documentation. Always propose and discuss solutions before
+  implementing them.
+- Authentication: Supabase Auth with `@supabase/ssr` for Next.js App Router.
+
+# Component Development
+
+- Use shadcn/ui components where appropriate.
+- Use Tailwind CSS for all custom styling. No MUI. No CSS Modules.
+- Follow standard component naming conventions.
+- Every new component must include accessibility features (ARIA labels, keyboard
+  navigation, semantic HTML, WCAG AA contrast).
+
+# State Management
+
+- Client UI state: Zustand with Immer for complex mutations.
+
+# Data Fetching
+
+- TanStack Query (`@tanstack/react-query`) for all server state.
+- `graphql-request` as the GraphQL client for Supabase GraphQL API.
+- Use Supabase JS client directly for simple auth and realtime operations.
+
+# Libraries Reference
+
+## Core PWA
+
+- `@ducanh2912/next-pwa` — service worker + offline caching
+- `web-push` — server-side push notifications
+- `idb` — IndexedDB wrapper for offline storage
+
+## UI & Interaction
+
+- shadcn/ui — component library
+- `tailwind-merge` + `clsx` — conditional class merging
+- `framer-motion` — animations (card flip, page transitions)
+- `@dnd-kit/core` + `@dnd-kit/sortable` — drag and drop for spread builder
+- `lucide-react` — icons
+- `sonner` — toast notifications
+
+## Forms & Validation
+
+- `react-hook-form` — form state management
+- `zod` — schema validation and TypeScript type inference
+- `@hookform/resolvers` — connects zod to react-hook-form
+
+## Data & State
+
+- `@tanstack/react-query` — server state management
+- `graphql-request` — GraphQL client
+- `zustand` — client UI state
+- `immer` — immutable state updates
+
+## Dates
+
+- `date-fns` + `date-fns-tz` — all date handling and formatting
+
+## Astrology
+
+- `astronomia` — moon phases and planetary calculations
+
+## Content & Media
+
+- `sharp` — build-time image optimization
+- `next/image` — all image rendering (never `<img>` tags directly)
+- `canvas-confetti` — celebration effects
+
+## Developer Experience
+
+- `@tanstack/react-query-devtools` — query inspector (dev only)
+- `prettier` — code formatting
+- `eslint-config-next` — linting
+- `husky` + `lint-staged` — pre-commit hooks
+- `drizzle-orm` + `drizzle-kit` — ORM and migrations
