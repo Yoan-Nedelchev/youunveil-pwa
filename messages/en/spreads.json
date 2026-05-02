@@ -109,6 +109,16 @@
     "cta": "Read cards",
     "loadingCta": "Reading",
     "fillAllSlotsHint": "Place cards in past, present, and future first.",
+    "play": "Play",
+    "pause": "Pause",
+    "stop": "Stop",
+    "voiceLabel": "Voice",
+    "voices": {
+      "mysterious": "Mysterious",
+      "celestial": "Celestial"
+    },
+    "ttsLoading": "Preparing voice...",
+    "ttsError": "Voice playback is unavailable right now. Please try again.",
     "resultTitle": "Interpretation",
     "error": "We could not generate your interpretation right now. Please try again."
   },

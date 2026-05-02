@@ -1,8 +1,24 @@
 import { GoogleGenAI } from "@google/genai/node";
 import { NextRequest, NextResponse } from "next/server";
 
-const MODEL = "gemini-2.5-flash";
+const MODEL = (process.env.GEMINI_MODEL || "gemini-3.1-flash-lite").trim();
 const MAX_PROMPT_LENGTH = 8000;
+
+function extractUpstreamErrorMessage(err: unknown): string | null {
+  if (!(err instanceof Error)) return null;
+  const raw = err.message.trim();
+  const jsonStart = raw.indexOf("{");
+  if (jsonStart < 0) return null;
+  const candidate = raw.slice(jsonStart);
+  try {
+    const parsed = JSON.parse(candidate) as {
+      error?: { message?: string };
+    };
+    return parsed.error?.message ?? null;
+  } catch {
+    return null;
+  }
+}
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -60,10 +76,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Request aborted" }, { status: 499 });
     }
 
+    const maybeStatus =
+      typeof err === "object" &&
+      err !== null &&
+      "status" in err &&
+      typeof (err as { status: unknown }).status === "number"
+        ? (err as { status: number }).status
+        : null;
+
+    const upstreamMessage =
+      extractUpstreamErrorMessage(err) ?? "Failed to generate content";
     console.error("Gemini error:", err);
     return NextResponse.json(
-      { error: "Failed to generate content" },
-      { status: 500 },
+      { error: upstreamMessage },
+      { status: maybeStatus && maybeStatus >= 400 ? maybeStatus : 500 },
     );
   }
 }
