@@ -71,7 +71,12 @@ function pickNamespaces(pathname: string): Set<NamespaceKey> {
     return needed;
   }
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
+  if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/register") ||
+    pathname.startsWith("/forgot-password") ||
+    pathname.startsWith("/reset-password")
+  ) {
     return needed;
   }
 

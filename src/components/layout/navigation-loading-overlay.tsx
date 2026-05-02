@@ -10,17 +10,17 @@ export function NavigationLoadingOverlay() {
   if (!isNavigating) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/25 backdrop-blur-sm">
+    <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/25 backdrop-blur-sm">
       <div
-        className="glass-panel border-palette-secondary/25 flex items-center gap-4 rounded-2xl border px-8 py-5"
+        className="glass-panel border-palette-secondary/25 flex items-center rounded-2xl border px-8 py-6"
         role="status"
         aria-live="polite"
+        aria-label="Loading"
       >
         <Loader2
-          className="text-palette-secondary size-10 animate-spin"
+          className="text-palette-secondary size-14 animate-spin"
           aria-hidden
         />
-        <span className="text-base font-medium">Loading...</span>
       </div>
     </div>
   );

@@ -5,7 +5,13 @@ import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
-export function SpreadsInitialQuestion({ className }: { className?: string }) {
+export function SpreadsInitialQuestion({
+  className,
+  question,
+}: {
+  className?: string;
+  question?: string;
+}) {
   const t = useTranslations("spreads.mobile");
 
   return (
@@ -21,7 +27,7 @@ export function SpreadsInitialQuestion({ className }: { className?: string }) {
               {t("initialEyebrow")}
             </p>
             <p className="font-heading text-foreground text-lg leading-snug">
-              {t("initialQuestion")}
+              {question ?? t("initialQuestion")}
             </p>
           </div>
         </div>
