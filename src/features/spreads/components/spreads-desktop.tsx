@@ -15,6 +15,7 @@ import {
 } from "@/stores/spread-tarot-store";
 
 import { SpreadDragArenaDesktop } from "./spread-drag-arena-desktop";
+import { SpreadInterpretationCta } from "./spread-interpretation-cta";
 import { SpreadsInitialQuestion } from "./spreads-initial-question";
 import { SpreadTarotDndDesktop } from "./spread-tarot-dnd-desktop";
 import { TarotDeckDropZoneDesktop } from "./tarot-deck-drop-zone-desktop";
@@ -30,6 +31,7 @@ export function SpreadsDesktop({
   const locale = useLocale();
   const t = useTranslations("spreads.desktop.cardInfo");
   const tDashboard = useTranslations("spreads.dashboard");
+  const tMobile = useTranslations("spreads.mobile");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
   const cardInfoCache = useSpreadTarotStore((s) => s.cardInfoCache);
   const setCardInfoCache = useSpreadTarotStore((s) => s.setCardInfoCache);
@@ -44,6 +46,7 @@ export function SpreadsDesktop({
     meaning: string;
     orientation: "upright" | "reversed";
   } | null>(null);
+  const effectiveInquiry = inquiry?.trim() || tMobile("initialQuestion");
 
   useEffect(() => {
     initSpread();
@@ -152,8 +155,15 @@ export function SpreadsDesktop({
                 </button>
               ) : null}
             </div>
-            <SpreadsInitialQuestion className="max-w-none" question={inquiry} />
+            <SpreadsInitialQuestion
+              className="max-w-none"
+              question={effectiveInquiry}
+            />
             <SpreadDragArenaDesktop onRequestCardInfo={requestCardInfo} />
+            <SpreadInterpretationCta
+              inquiry={effectiveInquiry}
+              className="my-4"
+            />
             <section className="-mt-8 flex w-full flex-col items-center md:-mt-12">
               <TarotDeckDropZoneDesktop>
                 <TarotDeckFanDesktop />

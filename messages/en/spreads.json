@@ -105,6 +105,13 @@
       }
     }
   },
+  "interpretation": {
+    "cta": "Illuminate",
+    "loadingCta": "Illuminating",
+    "fillAllSlotsHint": "Place cards in past, present, and future first.",
+    "resultTitle": "Interpretation",
+    "error": "We could not generate your interpretation right now. Please try again."
+  },
   "images": {
     "mobilePast": "Mystical tarot card back with gold celestial pattern on deep navy.",
     "mobilePresent": "The Magician tarot card in a cosmic digital style.",

@@ -35,11 +35,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Prompt too long" }, { status: 400 });
   }
 
+  if (req.signal.aborted) {
+    return NextResponse.json({ error: "Request aborted" }, { status: 499 });
+  }
+
   try {
     const genAI = new GoogleGenAI({ apiKey });
     const res = await genAI.models.generateContent({
       model: MODEL,
       contents: prompt,
+      config: {
+        abortSignal: req.signal,
+      },
     });
 
     const output = res.text ?? "";
@@ -49,6 +56,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ output });
   } catch (err) {
+    if (req.signal.aborted) {
+      return NextResponse.json({ error: "Request aborted" }, { status: 499 });
+    }
+
     console.error("Gemini error:", err);
     return NextResponse.json(
       { error: "Failed to generate content" },

@@ -17,6 +17,7 @@ import {
 } from "@/stores/spread-tarot-store";
 
 import { SpreadsInitialQuestion } from "./spreads-initial-question";
+import { SpreadInterpretationCta } from "./spread-interpretation-cta";
 
 export function SpreadsMobile({
   inquiry,
@@ -51,6 +52,7 @@ export function SpreadsMobile({
     meaning: string;
     orientation: "upright" | "reversed";
   } | null>(null);
+  const effectiveInquiry = inquiry?.trim() || t("initialQuestion");
   const initializedRef = useRef(false);
 
   useEffect(() => {
@@ -186,7 +188,7 @@ export function SpreadsMobile({
             </button>
           </div>
         ) : null}
-        <SpreadsInitialQuestion question={inquiry} />
+        <SpreadsInitialQuestion question={effectiveInquiry} />
         <section
           className="mb-6 grid w-full max-w-md grid-cols-1 gap-8"
           aria-label={t("canvasAria")}
@@ -269,6 +271,10 @@ export function SpreadsMobile({
             );
           })}
         </section>
+        <SpreadInterpretationCta
+          inquiry={effectiveInquiry}
+          className="max-w-md"
+        />
       </main>
 
       {isLoadingInfo ? (
