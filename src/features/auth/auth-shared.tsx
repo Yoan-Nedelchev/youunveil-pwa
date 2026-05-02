@@ -15,5 +15,15 @@ export function useSupabaseBrowser() {
 
 export function useLocaleAuthCallback() {
   const locale = useLocale();
-  return () => getAuthCallbackUrl(locale);
+  return (nextPath?: string) => {
+    const callbackBase = getAuthCallbackUrl(locale);
+    if (!nextPath) return callbackBase;
+    const localizedNext =
+      nextPath.startsWith(`/${locale}/`) || nextPath === `/${locale}`
+        ? nextPath
+        : `/${locale}${nextPath.startsWith("/") ? nextPath : `/${nextPath}`}`;
+    const url = new URL(callbackBase);
+    url.searchParams.set("next", localizedNext);
+    return url.toString();
+  };
 }

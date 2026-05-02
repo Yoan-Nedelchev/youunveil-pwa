@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, Loader2, X } from "lucide-react";
+import { ArrowLeft, Info, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -17,8 +17,15 @@ import {
 } from "@/stores/spread-tarot-store";
 
 import { SpreadsInitialQuestion } from "./spreads-initial-question";
+import { SpreadInterpretationCta } from "./spread-interpretation-cta";
 
-export function SpreadsMobile() {
+export function SpreadsMobile({
+  inquiry,
+  onBackToDashboard,
+}: {
+  inquiry?: string;
+  onBackToDashboard?: () => void;
+}) {
   const locale = useLocale();
   const t = useTranslations("spreads.mobile");
   const tDesktop = useTranslations("spreads.desktop");
@@ -44,6 +51,7 @@ export function SpreadsMobile() {
     meaning: string;
     orientation: "upright" | "reversed";
   } | null>(null);
+  const effectiveInquiry = inquiry?.trim() || t("initialQuestion");
   const initializedRef = useRef(false);
 
   useEffect(() => {
@@ -163,11 +171,23 @@ export function SpreadsMobile() {
       <CosmicBackdrop />
       <main
         className={cn(
-          "text-foreground flex min-h-screen flex-col items-center px-4 pt-16 pb-24 transition-[filter]",
+          "text-foreground flex min-h-screen flex-col items-center px-4 pt-8 pb-12 transition-[filter]",
           (isLoadingInfo || cardInfo) && "pointer-events-none blur-[2px]",
         )}
       >
-        <SpreadsInitialQuestion />
+        {onBackToDashboard ? (
+          <div className="mb-5 flex w-full max-w-md items-center justify-start">
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="border-palette-secondary/40 text-palette-secondary hover:bg-palette-secondary/10 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm"
+            >
+              <ArrowLeft className="size-4" aria-hidden />
+              Back
+            </button>
+          </div>
+        ) : null}
+        <SpreadsInitialQuestion question={effectiveInquiry} />
         <section
           className="mb-6 grid w-full max-w-md grid-cols-1 gap-8"
           aria-label={t("canvasAria")}
@@ -250,6 +270,10 @@ export function SpreadsMobile() {
             );
           })}
         </section>
+        <SpreadInterpretationCta
+          inquiry={effectiveInquiry}
+          className="mt-8 max-w-md"
+        />
       </main>
 
       {isLoadingInfo ? (

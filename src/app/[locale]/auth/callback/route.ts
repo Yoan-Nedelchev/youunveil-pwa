@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { type EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest, NextResponse } from "next/server";
 
 import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/env";
@@ -9,6 +10,10 @@ export async function GET(
 ) {
   const { locale } = await context.params;
   const code = request.nextUrl.searchParams.get("code");
+  const tokenHash = request.nextUrl.searchParams.get("token_hash");
+  const otpType = request.nextUrl.searchParams.get(
+    "type",
+  ) as EmailOtpType | null;
   const nextRaw = request.nextUrl.searchParams.get("next");
   const nextPath = nextRaw && nextRaw.startsWith("/") ? nextRaw : `/${locale}`;
 
@@ -16,7 +21,7 @@ export async function GET(
     new URL(`/${locale}/login?error=auth`, request.url),
   );
 
-  if (!code) {
+  if (!code && !(tokenHash && otpType)) {
     return loginError;
   }
 
@@ -41,7 +46,12 @@ export async function GET(
     },
   );
 
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
+  const { error } = code
+    ? await supabase.auth.exchangeCodeForSession(code)
+    : await supabase.auth.verifyOtp({
+        type: otpType!,
+        token_hash: tokenHash!,
+      });
 
   if (error) {
     return loginError;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -44,18 +44,24 @@ export function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
 
   useEffect(() => {
     if (searchParams.get("error") === "auth") {
       setError(t("errorAuth"));
+    }
+    if (searchParams.get("reset") === "success") {
+      setInfo(t("resetSuccess"));
     }
   }, [searchParams, t]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    setInfo(null);
     setLoading(true);
     try {
       const { error: signError } = await supabase.auth.signInWithPassword({
@@ -94,6 +100,11 @@ export function LoginForm() {
           {error}
         </p>
       ) : null}
+      {info !== null ? (
+        <p className="bg-palette-secondary/10 text-palette-secondary mb-6 rounded-lg px-4 py-3 text-sm">
+          {info}
+        </p>
+      ) : null}
 
       <form onSubmit={(e) => void onSubmit(e)} className="space-y-4">
         <div>
@@ -120,15 +131,37 @@ export function LoginForm() {
           >
             {t("password")}
           </label>
-          <input
-            id="login-password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="border-border bg-palette-primary/50 text-foreground focus-visible:ring-ring w-full rounded-lg border px-4 py-3 text-base outline-none focus-visible:ring-2"
-          />
+          <div className="relative">
+            <input
+              id="login-password"
+              type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="border-border bg-palette-primary/50 text-foreground focus-visible:ring-ring w-full rounded-lg border px-4 py-3 pr-11 text-base outline-none focus-visible:ring-2"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((previous) => !previous)}
+              className="text-muted-foreground hover:text-palette-secondary absolute top-1/2 right-3 -translate-y-1/2"
+              aria-label={showPassword ? t("hidePassword") : t("showPassword")}
+            >
+              {showPassword ? (
+                <EyeOff className="size-5" aria-hidden />
+              ) : (
+                <Eye className="size-5" aria-hidden />
+              )}
+            </button>
+          </div>
+          <div className="mt-2 text-right">
+            <Link
+              href="/forgot-password"
+              className="text-palette-secondary text-xs font-medium hover:underline"
+            >
+              {t("forgotPasswordLink")}
+            </Link>
+          </div>
         </div>
         <button
           type="submit"
