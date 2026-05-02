@@ -40,7 +40,7 @@ export function LandingHero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
+      className="relative flex min-h-screen items-start justify-center overflow-hidden pt-8 md:items-center md:pt-0"
       aria-labelledby="hero-heading"
     >
       <div className="absolute inset-0 z-0">

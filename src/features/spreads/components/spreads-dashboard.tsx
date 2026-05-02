@@ -21,7 +21,7 @@ export function SpreadsDashboard({
   return (
     <div className="cosmic-gradient-bg text-foreground relative min-h-screen overflow-x-hidden">
       <CosmicBackdrop />
-      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 pt-16 pb-24 md:px-12">
+      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 pt-10 pb-12 md:px-12">
         <section className="mb-10 w-full">
           <p className="text-label-sm text-palette-secondary uppercase tracking-widest">
             {t("currentInquiryLabel")}

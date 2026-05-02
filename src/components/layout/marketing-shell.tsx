@@ -7,10 +7,10 @@ export function MarketingShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col">
       <NavActiveSync />
-      <NavigationLoadingOverlay />
       <SiteHeader />
-      <main id="main-content" className="min-h-0 flex-1">
+      <main id="main-content" className="relative z-0 isolate min-h-0 flex-1">
         {children}
+        <NavigationLoadingOverlay />
       </main>
       <MobileBottomNav />
     </div>

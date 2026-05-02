@@ -32,7 +32,6 @@ export function SpreadsMobile({
   const tSlots = useTranslations("spreads.mobile.slots");
   const tInfo = useTranslations("spreads.desktop.cardInfo");
   const tDeck = useTranslations("spreads.desktop.deck");
-  const tDashboard = useTranslations("spreads.dashboard");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
   const placeFromDeck = useSpreadTarotStore((s) => s.placeFromDeck);
   const slots = useSpreadTarotStore((s) => s.slots);
@@ -172,7 +171,7 @@ export function SpreadsMobile({
       <CosmicBackdrop />
       <main
         className={cn(
-          "text-foreground flex min-h-screen flex-col items-center px-4 pt-16 pb-24 transition-[filter]",
+          "text-foreground flex min-h-screen flex-col items-center px-4 pt-8 pb-12 transition-[filter]",
           (isLoadingInfo || cardInfo) && "pointer-events-none blur-[2px]",
         )}
       >
@@ -184,7 +183,7 @@ export function SpreadsMobile({
               className="border-palette-secondary/40 text-palette-secondary hover:bg-palette-secondary/10 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm"
             >
               <ArrowLeft className="size-4" aria-hidden />
-              {tDashboard("backToDashboard")}
+              Back
             </button>
           </div>
         ) : null}
@@ -273,7 +272,7 @@ export function SpreadsMobile({
         </section>
         <SpreadInterpretationCta
           inquiry={effectiveInquiry}
-          className="max-w-md"
+          className="mt-8 max-w-md"
         />
       </main>
 

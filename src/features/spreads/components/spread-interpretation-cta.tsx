@@ -61,16 +61,16 @@ export function SpreadInterpretationCta({
             }}
             disabled={disabled}
             className={cn(
-              "inline-flex items-center gap-3 rounded-full px-10 py-4 font-heading text-xl tracking-[0.15em] uppercase transition-all",
+              "inline-flex items-center gap-2 rounded-full px-7 py-3 font-heading text-base tracking-[0.1em] uppercase transition-all",
               disabled
                 ? "cursor-not-allowed bg-palette-secondary/40 text-palette-primary/70"
                 : "cursor-pointer bg-palette-secondary text-palette-primary hover:bg-palette-secondary/90",
             )}
           >
             {isLoading ? (
-              <Loader2 className="size-5 animate-spin" aria-hidden />
+              <Loader2 className="size-4 animate-spin" aria-hidden />
             ) : (
-              <Sparkles className="size-5" aria-hidden />
+              <Sparkles className="size-4" aria-hidden />
             )}
             {isLoading ? t("loadingCta") : t("cta")}
           </button>

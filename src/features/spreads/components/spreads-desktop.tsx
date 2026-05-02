@@ -30,7 +30,6 @@ export function SpreadsDesktop({
 }) {
   const locale = useLocale();
   const t = useTranslations("spreads.desktop.cardInfo");
-  const tDashboard = useTranslations("spreads.dashboard");
   const tMobile = useTranslations("spreads.mobile");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
   const cardInfoCache = useSpreadTarotStore((s) => s.cardInfoCache);
@@ -139,7 +138,7 @@ export function SpreadsDesktop({
         <div className="relative">
           <main
             className={cn(
-              "mx-auto flex min-h-screen max-w-6xl flex-col px-6 pt-16 pb-24 transition-[filter] md:px-12",
+              "mx-auto flex min-h-screen max-w-6xl flex-col px-6 pt-8 pb-12 transition-[filter] md:px-12",
               isLoadingInfo && "pointer-events-none blur-[2px]",
             )}
           >
@@ -151,7 +150,7 @@ export function SpreadsDesktop({
                   className="border-palette-secondary/40 text-palette-secondary hover:bg-palette-secondary/10 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm"
                 >
                   <ArrowLeft className="size-4" aria-hidden />
-                  {tDashboard("backToDashboard")}
+                  Back
                 </button>
               ) : null}
             </div>
