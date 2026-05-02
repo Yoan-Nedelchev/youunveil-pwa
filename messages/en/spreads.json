@@ -72,6 +72,39 @@
       "interpretCta": "Interpret spread"
     }
   },
+  "dashboard": {
+    "title": "Choose your spread vessel",
+    "subtitle": "Select the ritual that best matches your inquiry and enter the reading flow instantly.",
+    "currentInquiryLabel": "Current inquiry",
+    "fallbackInquiry": "What should I focus on next?",
+    "refineInquiryCta": "Refine inquiry",
+    "saveInquiryCta": "Save",
+    "cancelInquiryCta": "Cancel",
+    "availableRituals": "Available rituals",
+    "vesselsCount": "{count} vessels",
+    "backToDashboard": "Back to dashboard",
+    "comingSoon": "This spread is listed in the dashboard and will be activated next. Use Time's Weaver for a full reading right now.",
+    "options": {
+      "cardsCount": "{count} cards",
+      "selectCta": "Open spread",
+      "daily-guidance": {
+        "title": "Daily Guidance",
+        "description": "A focused single-card pull for immediate direction."
+      },
+      "three-card": {
+        "title": "Time's Weaver",
+        "description": "Past, present, and future threads in one balanced reading."
+      },
+      "ethereal-bond": {
+        "title": "Ethereal Bond",
+        "description": "A five-card layout for relationship dynamics and harmony."
+      },
+      "celtic-cross": {
+        "title": "Celtic Cross",
+        "description": "A complete ten-card spread for deeper life patterns."
+      }
+    }
+  },
   "images": {
     "mobilePast": "Mystical tarot card back with gold celestial pattern on deep navy.",
     "mobilePresent": "The Magician tarot card in a cosmic digital style.",

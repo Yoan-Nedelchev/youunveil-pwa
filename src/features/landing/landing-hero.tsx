@@ -3,60 +3,39 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { ArrowRight, Loader2, Sparkles, Zap } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { LANDING_IMAGES } from "@/features/landing/image-urls";
 import { buttonVariants } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 export function LandingHero() {
   const t = useTranslations("landing.hero");
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [prompt, setPrompt] = useState("");
-  const [output, setOutput] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const submit = useCallback(async () => {
+  useEffect(() => {
+    const inquiry = searchParams.get("inquiry");
+    if (!inquiry) return;
+    setPrompt(inquiry);
+  }, [searchParams]);
+
+  const submit = useCallback(() => {
     const trimmed = prompt.trim();
     if (!trimmed) {
       setError(t("errorEmpty"));
-      setOutput(null);
       return;
     }
 
     setLoading(true);
     setError(null);
-    setOutput(null);
-
-    try {
-      const res = await fetch("/api/gemini", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: trimmed }),
-      });
-
-      const data = (await res.json()) as { output?: string; error?: string };
-
-      if (!res.ok) {
-        if (res.status === 400 && data.error === "Prompt too long") {
-          setError(t("errorTooLong"));
-        } else {
-          setError(t("errorGeneric"));
-        }
-        return;
-      }
-
-      if (typeof data.output === "string" && data.output.length > 0) {
-        setOutput(data.output);
-      } else {
-        setError(t("errorGeneric"));
-      }
-    } catch {
-      setError(t("errorGeneric"));
-    } finally {
-      setLoading(false);
-    }
-  }, [prompt, t]);
+    router.push(`/spreads?inquiry=${encodeURIComponent(trimmed)}`);
+  }, [prompt, router, t]);
 
   return (
     <section
@@ -128,7 +107,7 @@ export function LandingHero() {
               </>
             ) : (
               <>
-                {t("inquire")}
+                {t("beginSpread")}
                 <ArrowRight
                   className="size-5 shrink-0 transition-transform group-hover:translate-x-1"
                   aria-hidden
@@ -138,27 +117,14 @@ export function LandingHero() {
           </button>
         </form>
 
-        {(output !== null || error !== null) && (
+        {error !== null && (
           <div
             className="glass-panel border-palette-secondary/15 mt-6 rounded-xl border px-6 py-5 text-left shadow-xl"
             role="region"
             aria-label={t("responseAria")}
             aria-live="polite"
           >
-            {error !== null ? (
-              <p className="text-destructive text-sm leading-relaxed">
-                {error}
-              </p>
-            ) : (
-              <>
-                <h2 className="text-label-sm text-palette-secondary mb-3 font-heading font-semibold tracking-widest uppercase">
-                  {t("responseHeading")}
-                </h2>
-                <p className="text-foreground/90 whitespace-pre-wrap text-base leading-relaxed">
-                  {output}
-                </p>
-              </>
-            )}
+            <p className="text-destructive text-sm leading-relaxed">{error}</p>
           </div>
         )}
 

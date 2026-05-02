@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, X } from "lucide-react";
+import { ArrowLeft, Loader2, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -20,9 +20,16 @@ import { SpreadTarotDndDesktop } from "./spread-tarot-dnd-desktop";
 import { TarotDeckDropZoneDesktop } from "./tarot-deck-drop-zone-desktop";
 import { TarotDeckFanDesktop } from "./tarot-deck-fan-desktop";
 
-export function SpreadsDesktop() {
+export function SpreadsDesktop({
+  inquiry,
+  onBackToDashboard,
+}: {
+  inquiry?: string;
+  onBackToDashboard?: () => void;
+}) {
   const locale = useLocale();
   const t = useTranslations("spreads.desktop.cardInfo");
+  const tDashboard = useTranslations("spreads.dashboard");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
   const cardInfoCache = useSpreadTarotStore((s) => s.cardInfoCache);
   const setCardInfoCache = useSpreadTarotStore((s) => s.setCardInfoCache);
@@ -133,7 +140,19 @@ export function SpreadsDesktop() {
               isLoadingInfo && "pointer-events-none blur-[2px]",
             )}
           >
-            <SpreadsInitialQuestion className="max-w-none" />
+            <div className="mb-5 flex items-center justify-start">
+              {onBackToDashboard ? (
+                <button
+                  type="button"
+                  onClick={onBackToDashboard}
+                  className="border-palette-secondary/40 text-palette-secondary hover:bg-palette-secondary/10 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm"
+                >
+                  <ArrowLeft className="size-4" aria-hidden />
+                  {tDashboard("backToDashboard")}
+                </button>
+              ) : null}
+            </div>
+            <SpreadsInitialQuestion className="max-w-none" question={inquiry} />
             <SpreadDragArenaDesktop onRequestCardInfo={requestCardInfo} />
             <section className="-mt-8 flex w-full flex-col items-center md:-mt-12">
               <TarotDeckDropZoneDesktop>

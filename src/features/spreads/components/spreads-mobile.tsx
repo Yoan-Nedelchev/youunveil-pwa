@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, Loader2, X } from "lucide-react";
+import { ArrowLeft, Info, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -18,13 +18,20 @@ import {
 
 import { SpreadsInitialQuestion } from "./spreads-initial-question";
 
-export function SpreadsMobile() {
+export function SpreadsMobile({
+  inquiry,
+  onBackToDashboard,
+}: {
+  inquiry?: string;
+  onBackToDashboard?: () => void;
+}) {
   const locale = useLocale();
   const t = useTranslations("spreads.mobile");
   const tDesktop = useTranslations("spreads.desktop");
   const tSlots = useTranslations("spreads.mobile.slots");
   const tInfo = useTranslations("spreads.desktop.cardInfo");
   const tDeck = useTranslations("spreads.desktop.deck");
+  const tDashboard = useTranslations("spreads.dashboard");
   const initSpread = useSpreadTarotStore((s) => s.initSpread);
   const placeFromDeck = useSpreadTarotStore((s) => s.placeFromDeck);
   const slots = useSpreadTarotStore((s) => s.slots);
@@ -167,7 +174,19 @@ export function SpreadsMobile() {
           (isLoadingInfo || cardInfo) && "pointer-events-none blur-[2px]",
         )}
       >
-        <SpreadsInitialQuestion />
+        {onBackToDashboard ? (
+          <div className="mb-5 flex w-full max-w-md items-center justify-start">
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="border-palette-secondary/40 text-palette-secondary hover:bg-palette-secondary/10 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm"
+            >
+              <ArrowLeft className="size-4" aria-hidden />
+              {tDashboard("backToDashboard")}
+            </button>
+          </div>
+        ) : null}
+        <SpreadsInitialQuestion question={inquiry} />
         <section
           className="mb-6 grid w-full max-w-md grid-cols-1 gap-8"
           aria-label={t("canvasAria")}
