@@ -29,7 +29,7 @@ type TarotTranslationResponse = {
   desc: string;
 };
 
-const TRANSLATION_MODEL = "gemini-2.5-flash";
+const TRANSLATION_MODEL = "gemini-3.1-flash-lite";
 
 function parseJsonObject(text: string): TarotTranslationResponse | null {
   const trimmed = text.trim();
